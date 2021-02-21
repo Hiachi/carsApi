@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const car = require('../models/car_model');
+const owner = require('../models/owner_model');
 
 router.get('/:id?',
  function(request, response) {
   if (request.params.id) {
-    car.getById(request.params.id, function(err, dbResult) {
+    owner.getById(request.params.id, function(err, dbResult) {
       if (err) {
         response.json(err);
       } else {
@@ -13,7 +13,7 @@ router.get('/:id?',
       }
     });
   } else {
-    car.get(function(err, dbResult) {
+    owner.get(function(err, dbResult) {
       if (err) {
         response.json(err);
       } else {
@@ -26,7 +26,7 @@ router.get('/:id?',
 
 router.post('/', 
 function(request, response) {
-  car.add(request.body, function(err, dbResult) {
+  owner.add(request.body, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
@@ -39,7 +39,7 @@ function(request, response) {
 
 router.delete('/:id', 
 function(request, response) {
-  car.delete(request.params.id, function(err, dbResult) {
+  owner.delete(request.params.id, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
@@ -51,7 +51,7 @@ function(request, response) {
 
 router.put('/:id', 
 function(request, response) {
-  car.update(request.params.id, request.body, function(err, dbResult) {
+  owner.update(request.params.id, request.body, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
