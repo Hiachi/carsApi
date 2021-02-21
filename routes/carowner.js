@@ -2,18 +2,51 @@ const express = require('express');
 const router = express.Router();
 const carowner = require('../models/carowner_model');
 
+// router.get('/:id?',
+//  function(request, response) {
+//   if (request.params.id) {
+//     carowner.getById(request.params.id, function(err, dbResult) {
+//       if (err) {
+//         response.json(err);
+//       } else {
+//         response.json(dbResult);
+//       }
+//     });
+//   } else {
+//     carowner.get(function(err, dbResult) {
+//       if (err) {
+//         response.json(err);
+//       } else {
+//         response.json(dbResult);
+//       }
+//     });
+//   }
+// });
 router.get('/:id?',
  function(request, response) {
   if (request.params.id) {
-    carowner.getById(request.params.id, function(err, dbResult) {
-      if (err) {
-        response.json(err);
-      } else {
-        response.json(dbResult);
-      }
-    });
-  } else {
-    carowner.get(function(err, dbResult) {
+    if (isNaN(request.params.id) == true) {
+      carowner.getNameCarAndNameOwner(function(err, dbResult) {
+        if (err) {
+          response.json(err);
+        } else {
+          response.json(dbResult);
+        }
+      })
+    }
+    else {
+      carowner.getById(request.params.id, function(err, dbResult) {
+        if (err) {
+          response.json(err);
+        } else {
+          response.json(dbResult);
+        }
+      })
+    }
+  }
+  
+  else {
+    carowner.getAllData(function(err, dbResult) {
       if (err) {
         response.json(err);
       } else {
@@ -22,7 +55,6 @@ router.get('/:id?',
     });
   }
 });
-
 
 router.post('/', 
 function(request, response) {

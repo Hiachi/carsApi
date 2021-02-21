@@ -1,8 +1,10 @@
 const db = require('../database');
 
 const carowner = {
-  get: function(callback) {
-    return db.query('select * from carowner order by idcarowner desc', callback);
+  // get: function(callback) {
+  //   return db.query('select * from carowner order by idcarowner desc', callback);
+  getAllData: function(callback) {
+    return db.query('select * from carowner', callback);
   },
   getById: function(id, callback) {
     return db.query('select * from carowner where idcarowner=?', [id], callback);
@@ -19,10 +21,29 @@ const carowner = {
   },
   update: function(id, carowner, callback) {
     return db.query(
+      // 'update carowner set idcar=?,idowner=? where idcarowner=?',
+      // [carowner.idcar, carowner.idowner, id],
       'update carowner set idcar=?,idowner=? where idcarowner=?',
-      [carowner.idcar, carowner.idowner, id],
+      [carowner.idcar, carowner.idowner, id], 
       callback
     );
-  }
+  },
+  // ---------------------------------------------------------------
+  getNameCarAndNameOwner: function(callback) {
+    return db.query(`select owner.idowner, firstname, lastname, group_concat(concat(brand," ", model)) as "cars of the person" 
+    from owner 
+    inner join carowner on owner.idowner=carowner.idowner 
+    inner join car on car.idcar=carowner.idcar 
+    group by owner.idowner
+  `, callback);
+  },
+  //   searchByBrand:function(value,callback) {
+  //     const nameLike="%"+value+"%";
+  //     return db.query('select * from carowner where brand LIKE ? order by idcar desc',[nameLike], callback);
+  //   },
+  //   searchByYearmodel:function(value,callback) {
+  //     const yearmodel=value;
+  //     return db.query('select * from carowner where yearmodel = ? order by idcar desc',[yearmodel], callback);
+  //   }
 };
 module.exports = carowner;
