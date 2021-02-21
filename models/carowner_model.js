@@ -9,8 +9,8 @@ const carowner = {
   },
   add: function(carowner, callback) {
     return db.query(
-      'insert into carowner (brand,model,yearmodel) values(?,?,?)',
-      [carowner.brand, carowner.model, carowner.yearmodel],
+      'insert into carowner (idcar,idowner) values(?,?)',
+      [carowner.idcar, carowner.idowner],
       callback
     );
   },
@@ -19,8 +19,8 @@ const carowner = {
   },
   update: function(id, carowner, callback) {
     return db.query(
-      'update carowner set brand=?,model=?, yearmodel=? where idcarowner=?',
-      [carowner.brand, carowner.model, carowner.yearmodel, id],
+      'update carowner set idcar=?,idowner=? where idcarowner=?',
+      [carowner.idcar, carowner.idowner, id],
       callback
     );
   }
