@@ -1,28 +1,28 @@
 const db = require('../database');
 
-const carowner = {
+const car = {
   get: function(callback) {
-    return db.query('select * from carowner order by idcarowner desc', callback);
+    return db.query('select * from car order by idcar desc', callback);
   },
   getById: function(id, callback) {
-    return db.query('select * from carowner where idcarowner=?', [id], callback);
+    return db.query('select * from car where idcar=?', [id], callback);
   },
-  add: function(carowner, callback) {
+  add: function(car, callback) {
     return db.query(
-      'insert into carowner (brand,model,yearmodel) values(?,?,?)',
-      [carowner.brand, carowner.model, carowner.yearmodel],
+      'insert into car (brand,model,yearmodel) values(?,?,?)',
+      [car.brand, car.model, car.yearmodel],
       callback
     );
   },
   delete: function(id, callback) {
-    return db.query('delete from carowner where idcarowner=?', [id], callback);
+    return db.query('delete from car where idcar=?', [id], callback);
   },
-  update: function(id, carowner, callback) {
+  update: function(id, car, callback) {
     return db.query(
-      'update carowner set brand=?,model=?, yearmodel=? where idcarowner=?',
-      [carowner.brand, carowner.model, carowner.yearmodel, id],
+      'update car set brand=?,model=?, yearmodel=? where idcar=?',
+      [car.brand, car.model, car.yearmodel, id],
       callback
     );
   }
 };
-module.exports = carowner;
+module.exports = car;
